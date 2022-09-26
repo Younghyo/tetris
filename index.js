@@ -10,7 +10,13 @@ const height_block = 30;
 
 let map = Array.from(Array(row_board_game), () => new Array(col_board_game).fill(0));
 map[1][3] = 1;
-console.log(map);
+
+
+const color_table = {
+    '0': 'pink',
+    '1': 'blue',
+};
+
 
 const canvas = document.getElementById('canvas1');
 
@@ -28,7 +34,9 @@ function drawBoard() {
 
         for (let row = 0; row < row_board_game; row++) {
             for (let col = 0; col < col_board_game; col++) {
-                ctx.fillStyle = 'green';
+                const tp = map[row][col];
+                const color = color_table[`${tp}`];
+                ctx.fillStyle = color;
 
                 let rect = {
                     'x': col * width_block,

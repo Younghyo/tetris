@@ -71,6 +71,10 @@ function onKeyDown(e) {
         case 13:
             onGameLoop();
             break;
+        case 32:
+            blocksToGround();
+            drawBoard();
+            break;
         case 37:
             doMove('left');
             drawBoard();
@@ -80,11 +84,17 @@ function onKeyDown(e) {
             drawBoard();
             break;
     }
-
 }
 
 function onKeyUp(e) {
     console.log('up', e.keyCode);
+}
+
+function blocksToGround() {
+    while (doMove('down')) {
+    }
+    freezeBlocks();
+    newBlock();
 }
 
 function onGameLoop() {

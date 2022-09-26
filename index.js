@@ -68,7 +68,7 @@ function drawBoard() {
 function onKeyDown(e) {
     console.log('down', e.keyCode);
     switch (e.keyCode) {
-        case 13:
+        case 40:
             onGameLoop();
             break;
         case 32:

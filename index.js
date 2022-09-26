@@ -13,6 +13,19 @@ function draw(color) {
 }
 // draw();
 
+function onKeyDown(e)
+{
+    console.log('down', e.keyCode);
+}
+
+function onKeyUp(e)
+{
+    console.log('up', e.keyCode);
+}
+
+window.onkeydown = onKeyDown;
+window.onkeyup = onKeyUp;
+
 setInterval(onGameLoop, 200); // 33 milliseconds = ~ 30 frames per sec
 
 let cnt = 0;

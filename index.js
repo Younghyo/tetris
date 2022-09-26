@@ -14,8 +14,18 @@ const meta_move = {
         'rows': Array.from({ length: row_board_game }, (x, i) => i).reverse(),
         'cols': Array.from({ length: col_board_game }, (x, i) => i),
     },
-    'left': [0, -1],
-    'right': [0, +1],
+    'left': {
+        'row': 0,
+        'col': -1,
+        'rows': Array.from({ length: row_board_game }, (x, i) => i),
+        'cols': Array.from({ length: col_board_game }, (x, i) => i),
+    },
+    'right': {
+        'row': 0,
+        'col': 1,
+        'rows': Array.from({ length: row_board_game }, (x, i) => i),
+        'cols': Array.from({ length: col_board_game }, (x, i) => i).reverse(),
+    },
 }
 
 let map = Array.from(Array(row_board_game), () => new Array(col_board_game).fill('empty'));
@@ -61,6 +71,14 @@ function onKeyDown(e) {
         case 13:
             onGameLoop();
             break;
+        case 37:
+            doMove('left');
+            drawBoard();
+            break;
+        case 39:
+            doMove('right');
+            drawBoard();
+            break;
     }
 
 }
@@ -71,7 +89,7 @@ function onKeyUp(e) {
 
 function onGameLoop() {
     // console.log('tick!');
-    if (doStep('down')) {
+    if (doMove('down')) {
     }
     else {
         newBlock();
@@ -91,7 +109,7 @@ function insideBoard(row, col) {
     return true;
 }
 
-function doStep(dir) {
+function doMove(dir) {
     let stepped = false;
     for (let q of meta_move[dir]['rows']) {
         for (let w of meta_move[dir]['cols']) {

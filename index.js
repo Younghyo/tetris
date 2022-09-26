@@ -8,13 +8,14 @@ const width_block = 30;
 const height_block = 30;
 
 
-let map = Array.from(Array(row_board_game), () => new Array(col_board_game).fill(0));
-map[1][3] = 1;
+let map = Array.from(Array(row_board_game), () => new Array(col_board_game).fill('empty'));
+map[1][3] = 'falling';
 
 
 const color_table = {
-    '0': 'pink',
-    '1': 'blue',
+    'empty': 'pink',
+    'falling': 'blue',
+    'fallen': 'black'
 };
 
 
@@ -35,7 +36,7 @@ function drawBoard() {
         for (let row = 0; row < row_board_game; row++) {
             for (let col = 0; col < col_board_game; col++) {
                 const tp = map[row][col];
-                const color = color_table[`${tp}`];
+                const color = color_table[tp];
                 ctx.fillStyle = color;
 
                 let rect = {

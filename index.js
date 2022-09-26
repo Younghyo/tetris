@@ -92,6 +92,7 @@ function onGameLoop() {
     if (doMove('down')) {
     }
     else {
+        freezeBlocks();
         newBlock();
     }
     drawBoard();
@@ -130,6 +131,16 @@ function doMove(dir) {
         }
     }
     return stepped;
+}
+
+function freezeBlocks() {
+    for (let q = 0; q < row_board_game; q++) {
+        for (let w = 0; w < col_board_game; w++) {
+            if (map[q][w] == 'falling') {
+                map[q][w] = 'fallen';
+            }
+        }
+    }
 }
 
 function init() {

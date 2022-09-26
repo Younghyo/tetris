@@ -21,13 +21,6 @@ const color_table = {
 
 const canvas = document.getElementById('canvas1');
 
-function init() {
-    const board_width = col_board_game * width_block;
-    const board_height = row_board_game * height_block;
-    canvas.width = board_width;
-    canvas.height = board_height;
-}
-init();
 
 function drawBoard() {
     if (canvas.getContext) {
@@ -42,6 +35,7 @@ function drawBoard() {
                 let rect = {
                     'x': col * width_block,
                     'width': width_block - 3,
+
                     'y': row * height_block,
                     'height': height_block - 3
                 };
@@ -52,21 +46,6 @@ function drawBoard() {
         }
     }
 }
-drawBoard();
-
-function draw(color) {
-    return;
-    const canvas = document.getElementById('canvas1');
-    if (canvas.getContext) {
-        const ctx = canvas.getContext('2d');
-
-        ctx.fillStyle = color;
-        ctx.fillRect(25, 25, 100, 100);
-        ctx.clearRect(45, 45, 60, 60);
-        ctx.strokeRect(50, 50, 50, 50);
-    }
-}
-// draw();
 
 function onKeyDown(e) {
     console.log('down', e.keyCode);
@@ -76,19 +55,20 @@ function onKeyUp(e) {
     console.log('up', e.keyCode);
 }
 
-window.onkeydown = onKeyDown;
-window.onkeyup = onKeyUp;
-
-// setInterval(onGameLoop, 200); // 33 milliseconds = ~ 30 frames per sec
-
-let cnt = 0;
 function onGameLoop() {
     console.log('tick!');
-    if (cnt % 2 == 0) {
-        draw('green');
-    }
-    else {
-        draw('red');
-    }
-    cnt++;
 }
+
+function init() {
+    window.onkeydown = onKeyDown;
+    window.onkeyup = onKeyUp;
+
+    const board_width = col_board_game * width_block;
+    const board_height = row_board_game * height_block;
+    canvas.width = board_width;
+    canvas.height = board_height;
+
+    drawBoard();
+    // setInterval(onGameLoop, 200); // 33 milliseconds = ~ 30 frames per sec
+}
+init();

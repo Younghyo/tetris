@@ -7,10 +7,8 @@ const col_board_game = 10;
 const width_block = 30;
 const height_block = 30;
 
-
 let map = Array.from(Array(row_board_game), () => new Array(col_board_game).fill('empty'));
-map[1][3] = 'falling';
-
+newBlock();
 
 const color_table = {
     'empty': 'pink',
@@ -49,6 +47,12 @@ function drawBoard() {
 
 function onKeyDown(e) {
     console.log('down', e.keyCode);
+    if(doStep()) {
+    }
+    else {
+        newBlock();
+    }
+    drawBoard();
 }
 
 function onKeyUp(e) {
@@ -57,6 +61,26 @@ function onKeyUp(e) {
 
 function onGameLoop() {
     console.log('tick!');
+}
+
+function newBlock() {
+    map[1][3] = 'falling';
+}
+
+function doStep() {
+    let stepped = false;
+    for (let q = row_board_game - 2; q >= 0; q--) {
+        for (let w = 0; w < col_board_game; w++) {
+            if (map[q][w] == 'falling') {
+                if (map[q + 1][w] == 'empty') {
+                    map[q + 1][w] = 'falling';
+                    map[q][w] = 'empty';
+                    stepped = true;
+                }
+            }
+        }
+    }
+    return stepped;
 }
 
 function init() {

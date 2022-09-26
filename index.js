@@ -7,6 +7,17 @@ const col_board_game = 10;
 const width_block = 30;
 const height_block = 30;
 
+const meta_move = {
+    'down': {
+        'row': 1,
+        'col': 0,
+        'rows': Array.from({ length: row_board_game }, (x, i) => i).reverse(),
+        'cols': Array.from({ length: col_board_game }, (x, i) => i),
+    },
+    'left': [0, -1],
+    'right': [0, +1],
+}
+
 let map = Array.from(Array(row_board_game), () => new Array(col_board_game).fill('empty'));
 newBlock();
 
@@ -60,7 +71,7 @@ function onKeyUp(e) {
 
 function onGameLoop() {
     // console.log('tick!');
-    if (doStep()) {
+    if (doStep('down')) {
     }
     else {
         newBlock();
@@ -72,15 +83,30 @@ function newBlock() {
     map[1][3] = 'falling';
 }
 
-function doStep() {
+function insideBoard(row, col) {
+    if (row < 0) return false;
+    if (col < 0) return false;
+    if (row >= row_board_game) return false;
+    if (col >= col_board_game) return false;
+    return true;
+}
+
+function doStep(dir) {
     let stepped = false;
-    for (let q = row_board_game - 2; q >= 0; q--) {
-        for (let w = 0; w < col_board_game; w++) {
+    for (let q of meta_move[dir]['rows']) {
+        for (let w of meta_move[dir]['cols']) {
+            const q_n = q + meta_move[dir]['row'];
+            const w_n = w + meta_move[dir]['col'];
+            if (!insideBoard(q_n, w_n))
+                continue;
+            // console.log(q, w, q_n, w_n);
+
             if (map[q][w] == 'falling') {
-                if (map[q + 1][w] == 'empty') {
-                    map[q + 1][w] = 'falling';
+                if (map[q_n][w_n] == 'empty') {
+                    map[q_n][w_n] = 'falling';
                     map[q][w] = 'empty';
                     stepped = true;
+                    // debugger;
                 }
             }
         }

@@ -1,4 +1,4 @@
-console.log('hello world!');
+// console.log('hello world!');
 
 
 const row_board_game = 22;
@@ -66,7 +66,7 @@ function drawBoard() {
 }
 
 function onKeyDown(e) {
-    console.log('down', e.keyCode);
+    // console.log('down', e.keyCode);
     switch (e.keyCode) {
         case 40:
             onGameLoop();
@@ -87,7 +87,7 @@ function onKeyDown(e) {
 }
 
 function onKeyUp(e) {
-    console.log('up', e.keyCode);
+    // console.log('up', e.keyCode);
 }
 
 function blocksToGround() {

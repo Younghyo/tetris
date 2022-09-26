@@ -39,7 +39,6 @@ function drawBoard() {
                 };
 
                 ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
-                console.log('q');
             }
         }
     }
@@ -47,12 +46,12 @@ function drawBoard() {
 
 function onKeyDown(e) {
     console.log('down', e.keyCode);
-    if(doStep()) {
+    switch (e.keyCode) {
+        case 13:
+            onGameLoop();
+            break;
     }
-    else {
-        newBlock();
-    }
-    drawBoard();
+
 }
 
 function onKeyUp(e) {
@@ -60,7 +59,13 @@ function onKeyUp(e) {
 }
 
 function onGameLoop() {
-    console.log('tick!');
+    // console.log('tick!');
+    if (doStep()) {
+    }
+    else {
+        newBlock();
+    }
+    drawBoard();
 }
 
 function newBlock() {
@@ -93,6 +98,6 @@ function init() {
     canvas.height = board_height;
 
     drawBoard();
-    // setInterval(onGameLoop, 200); // 33 milliseconds = ~ 30 frames per sec
+    setInterval(onGameLoop, 1000);
 }
 init();
